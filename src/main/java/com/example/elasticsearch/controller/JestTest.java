@@ -70,7 +70,7 @@ public class JestTest {
      * 全文搜索
      */
     public static void serach1() {
-        String query = "工程师";
+        String query = "师";
         try {
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.queryStringQuery(query));
