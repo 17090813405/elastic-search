@@ -38,7 +38,7 @@ public class JestTest {
 
     public static void test() throws IOException {
         jestClient = getJestClient();
-        insertBatch();
+//        insertBatch();
         serach1();
         serach2();
         serach3();
@@ -70,7 +70,7 @@ public class JestTest {
      * 全文搜索
      */
     public static void serach1() {
-        String query = "师";
+        String query = "2";
         try {
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.queryStringQuery(query));
