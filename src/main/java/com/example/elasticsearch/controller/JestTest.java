@@ -10,6 +10,7 @@ import io.searchbox.indices.CreateIndex;
 import io.searchbox.indices.DeleteIndex;
 import io.searchbox.indices.mapping.GetMapping;
 import io.searchbox.indices.mapping.PutMapping;
+import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
@@ -21,6 +22,7 @@ import java.util.List;
  * @author daizhichao
  * @date 2019/11/14
  */
+@Slf4j
 public class JestTest {
     private static JestClient jestClient;
     private static String indexName = "userindex";
@@ -60,7 +62,7 @@ public class JestTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("批量新增:" + result);
+        log.info("批量新增:" + result);
     }
 
 
@@ -74,8 +76,8 @@ public class JestTest {
             searchSourceBuilder.query(QueryBuilders.queryStringQuery(query));
             //分页设置
             searchSourceBuilder.from(0).size(2);
-            System.out.println("全文搜索查询语句:" + searchSourceBuilder.toString());
-            System.out.println("全文搜索返回结果:" + search(jestClient, indexName, typeName, searchSourceBuilder.toString()));
+            log.info("全文搜索查询语句:" + searchSourceBuilder.toString());
+            log.info("全文搜索返回结果:" + search(jestClient, indexName, typeName, searchSourceBuilder.toString()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -88,8 +90,8 @@ public class JestTest {
         try {
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.termQuery("age", 24));
-            System.out.println("精确搜索查询语句:" + searchSourceBuilder.toString());
-            System.out.println("精确搜索返回结果:" + search(jestClient, indexName, typeName, searchSourceBuilder.toString()));
+            log.info("精确搜索查询语句:" + searchSourceBuilder.toString());
+            log.info("精确搜索返回结果:" + search(jestClient, indexName, typeName, searchSourceBuilder.toString()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -107,8 +109,8 @@ public class JestTest {
         try {
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.rangeQuery(createtm).gte(from).lte(to));
-            System.out.println("区间搜索语句:" + searchSourceBuilder.toString());
-            System.out.println("区间搜索返回结果:" + search(jestClient, indexName, typeName, searchSourceBuilder.toString()));
+            log.info("区间搜索语句:" + searchSourceBuilder.toString());
+            log.info("区间搜索返回结果:" + search(jestClient, indexName, typeName, searchSourceBuilder.toString()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -192,8 +194,8 @@ public class JestTest {
                 .addType(typeName)
                 .build();
         JestResult jr = jestClient.execute(search);
-//          System.out.println("--"+jr.getJsonString());
-//          System.out.println("--"+jr.getSourceAsObject(User.class));
+//          log.info("--"+jr.getJsonString());
+//          log.info("--"+jr.getSourceAsObject(User.class));
         return jr.getSourceAsString();
     }
 
