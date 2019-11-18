@@ -11,6 +11,7 @@ import io.searchbox.indices.DeleteIndex;
 import io.searchbox.indices.mapping.GetMapping;
 import io.searchbox.indices.mapping.PutMapping;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.lucene.queryparser.classic.QueryParser;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
@@ -70,10 +71,10 @@ public class JestTest {
      * 全文搜索
      */
     public static void serach1() {
-        String query = "+工程师";
+        String query = "工程师";
         try {
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-            searchSourceBuilder.query(QueryBuilders.queryStringQuery(query));
+            searchSourceBuilder.query(QueryBuilders.queryStringQuery(QueryParser.escape(query)));
             //分页设置
             searchSourceBuilder.from(0).size(2);
             log.info("全文搜索查询语句:" + searchSourceBuilder.toString());
