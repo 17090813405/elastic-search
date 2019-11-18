@@ -73,19 +73,11 @@ public class JestTest {
         String query = "工程师";
         try {
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-            searchSourceBuilder.query(QueryBuilders.queryStringQuery(query).field("description"));
+            searchSourceBuilder.query(QueryBuilders.queryStringQuery(query));
             //分页设置
             searchSourceBuilder.from(0).size(2);
             log.info("全文搜索查询语句:" + searchSourceBuilder.toString());
-            log.info("全文搜索返回结果:" + search(jestClient, indexName, typeName, "{\n" +
-                    "  \"from\" : 0,\n" +
-                    "  \"size\" : 2,\n" +
-                    "  \"query\" : {\n" +
-                    "    \"query_string\" : {\n" +
-                    "      \"query\" : \"工程师\"\n" +
-                    "    }\n" +
-                    "  }\n" +
-                    "}"));
+            log.info("全文搜索返回结果:" + search(jestClient, indexName, typeName, searchSourceBuilder.toString()));
         } catch (Exception e) {
             e.printStackTrace();
         }
