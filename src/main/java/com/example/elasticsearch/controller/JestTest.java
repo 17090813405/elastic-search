@@ -77,7 +77,15 @@ public class JestTest {
             //分页设置
             searchSourceBuilder.from(0).size(2);
             log.info("全文搜索查询语句:" + searchSourceBuilder.toString());
-            log.info("全文搜索返回结果:" + search(jestClient, indexName, typeName, searchSourceBuilder.toString()));
+            log.info("全文搜索返回结果:" + search(jestClient, indexName, typeName, "{\n" +
+                    "  \"from\" : 0,\n" +
+                    "  \"size\" : 2,\n" +
+                    "  \"query\" : {\n" +
+                    "    \"query_string\" : {\n" +
+                    "      \"query\" : \"工程师\"\n" +
+                    "    }\n" +
+                    "  }\n" +
+                    "}"));
         } catch (Exception e) {
             e.printStackTrace();
         }
