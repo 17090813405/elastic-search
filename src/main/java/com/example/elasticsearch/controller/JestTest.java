@@ -75,7 +75,7 @@ public class JestTest {
         String query = "工程师";
         try {
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-            searchSourceBuilder.query(new QueryStringQueryBuilder(query).field(query));
+            searchSourceBuilder.query(new QueryStringQueryBuilder(query).field("description"));
             //分页设置
             searchSourceBuilder.from(0).size(2);
             log.info("全文搜索查询语句:" + searchSourceBuilder.toString());
